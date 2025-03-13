@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using BaltaDataAccess.Models;
+using Dapper;
+using Microsoft.Data.SqlClient;
 
 // Dapper
 namespace BaltaDataAcess
@@ -12,7 +14,11 @@ namespace BaltaDataAcess
 
             using (var connection = new SqlConnection())
             {
-                
+               var categories =  connection.Query<Category>("SELECT * FROM [Category]");
+               foreach (var category in categories)
+               {
+                   System.Console.WriteLine($"ID: {category.Id}, Title: {category.Title}");
+               }
             }
         }
     }
